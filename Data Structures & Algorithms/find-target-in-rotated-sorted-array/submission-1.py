@@ -1,0 +1,19 @@
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        low = 0
+        high = len(nums)-1
+        while low<=high:
+            mid = low+(high-low)//2
+            if nums[mid]==target:
+                return mid
+            elif nums[low] <= nums[mid]: # Left subarray is sorted
+                if target >nums[mid] or target < nums[low]: # Checks if it lies in the sorted subarray
+                    low = mid+1
+                else:
+                    high = mid-1
+            else: # Right part is sorted
+                if target < nums[mid] or target > nums[high]:
+                    high = mid-1
+                else:
+                    low = mid+1
+        return -1
